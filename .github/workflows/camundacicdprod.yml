@@ -1,6 +1,6 @@
 name: Camunda CI/CD to deployed on aws
 
-on: workflow_dispatch
+on: push
   
 jobs:
   build:
