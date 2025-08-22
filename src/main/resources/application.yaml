@@ -26,13 +26,13 @@ spring:
   datasource:
       type: com.zaxxer.hikari.HikariDataSource
       url: jdbc:postgresql://db-camunda-community7.ctegeqbib2kt.us-west-2.rds.amazonaws.com:5432/postgres
-      username: camundausr
-      password: prometheus123$
+      username: postgres
+      password: chaitresH424
 
   hikari:
         jdbc-url: jdbc:postgresql://db-camunda-community7.ctegeqbib2kt.us-west-2.rds.amazonaws.com:5432/postgres
-        username: camundausr
-        password: prometheus123$
+        username: postgres
+        password: chaitresH424
         driver-class-name: org.postgresql.Driver
         pool-name: CAMUNDA-HIKARI-POOL
         idle-timeout: 3000
