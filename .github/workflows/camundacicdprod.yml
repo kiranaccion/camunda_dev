@@ -1,4 +1,4 @@
-name: Camunda CI/CD to deployed on aws
+name: Camunda CI/CD to deployed 
 
 on: push
   
