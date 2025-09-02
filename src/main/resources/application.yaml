@@ -25,13 +25,13 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQL9Dialect
   datasource:
       type: com.zaxxer.hikari.HikariDataSource
-      url: jdbc:jdbc:postgresql://database-2.c7u4a8a4q1vb.us-west-2.rds.amazonaws.com:5432/postgres
-      username: postgres
+      url: jdbc:jdbc:postgresql://database-1.c7u4a8a4q1vb.us-west-2.rds.amazonaws.com:5432/postgres
+      username: camunda
       password: chaitresH424
 
   hikari:
-        jdbc-url: jdbc:postgresql://database-2.c7u4a8a4q1vb.us-west-2.rds.amazonaws.com:5432/postgres
-        username: postgres
+        jdbc-url: jdbc:postgresql://database-1.c7u4a8a4q1vb.us-west-2.rds.amazonaws.com:5432/postgres
+        username: camunda
         password: chaitresH424
         driver-class-name: org.postgresql.Driver
         pool-name: CAMUNDA-HIKARI-POOL
