@@ -16,7 +16,7 @@ camunda.bpm:
     deserialization-type-validation-enabled: true
     deserialization-allowed-packages:
     deserialization-allowed-classes:
-    enable-password-policy: true
+    enable-password-policy: false
   run:
     auth.enabled: true
 
