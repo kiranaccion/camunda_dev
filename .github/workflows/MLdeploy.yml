@@ -2,7 +2,7 @@ name: Azure ML Deploy Pipeline
 on:
   push:
     branches:
-      - mlstudiotesting
+      - testingml
 
   workflow_dispatch:
 
@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      RESOURCE_GROUP: Priyabrat.Sahoo-rg
+      RESOURCE_GROUP: Testingzeroshot
       WORKSPACE_NAME: Zero-shot-experiments
 
     steps:
