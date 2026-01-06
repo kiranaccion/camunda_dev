@@ -1,0 +1,48 @@
+name: Azure ML Deploy Pipeline
+on:
+  push:
+    branches:
+      - mlstudiotesting
+
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    env:
+      RESOURCE_GROUP: Priyabrat.Sahoo-rg
+      WORKSPACE_NAME: Zero-shot-experiments
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Azure Login action
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS_AI_FOUNDRY }}
+          enable-AzPSSession: true
+      - name: Set Azure ML Workspace
+        uses: azure/powershell@v2
+        with:
+          azPSVersion: latest
+          inlineScript: |
+           az configure --defaults group=$RESOURCE_GROUP workspace=$WORKSPACE_NAME
+      - name: Zero-shot-experiments
+        uses: azure/powershell@v2
+        with:
+          azPSVersion: latest
+          inlineScript: |
+            $myList = @()
+  
+            Get-ChildItem -Path "ML-Platform/environments/" | ForEach-Object {
+              if (($_.Extension -eq ".yml") -or ($_.Extension -eq ".yaml")) {
+                $myList += $_.Name
+              }
+            }
+  
+            foreach ($yaml in $myList) {
+              az ml online-endpoint create `
+                --file ML-Platform/environments/$yaml `
+                --set auth_mode=key
+            }
