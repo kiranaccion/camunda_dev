@@ -1,0 +1,37 @@
+name: Manual Workflow Creating aiFoundryEnvironment
+on:
+  workflow_dispatch:
+    inputs:
+        ai-Foundry-Environment-Path:
+          description: 'ai-Foundry-Environment-Path'     
+          required: true
+          default: ''
+        ai-Foundry-Resource-Group:
+          description: 'ai-Foundry-Resource-Group'     
+          required: true
+          default: '' 
+        ai-Foundry-Resource-Workspace-Name:
+          description: 'ai-Foundry-Resource-Workspace-Name'     
+          required: true
+          default: ''
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Azure Login action
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS_AI_FOUNDRY }}
+          enable-AzPSSession: true
+
+      - name: Create ai-Foundry-Environment
+        uses: azure/powershell@v2
+        with:
+          azPSVersion: latest
+          inlineScript: |
+            az ml environment create --file ${{ github.event.inputs.ai-Foundry-Environment-Path }} --resource-group ${{ github.event.inputs.ai-Foundry-Resource-Group }} --workspace-name ${{ github.event.inputs.ai-Foundry-Resource-Workspace-Name }}

@@ -1,0 +1,37 @@
+name: Manual Workflow Creating aiFoundryDeployment
+on:
+  workflow_dispatch:
+    inputs:
+        ai-Foundry-Deployment-Path:
+          description: 'ai-Foundry-Deployment-Path'     
+          required: true
+          default: ''
+        ai-Foundry-Resource-Group:
+          description: 'ai-Foundry-Resource-Group'     
+          required: true
+          default: '' 
+        ai-Foundry-Resource-Workspace-Name:
+          description: 'ai-Foundry-Resource-Workspace-Name'     
+          required: true
+          default: ''
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Azure Login action
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS_AI_FOUNDRY }}
+          enable-AzPSSession: true
+
+      - name: Create ai-Foundry-Deployment
+        uses: azure/powershell@v2
+        with:
+          azPSVersion: latest
+          inlineScript: |
+            az ml online-deployment create --file ${{ github.event.inputs.ai-Foundry-Deployment-Path }} --resource-group ${{ github.event.inputs.ai-Foundry-Resource-Group }} --workspace-name ${{ github.event.inputs.ai-Foundry-Resource-Workspace-Name }} --all-traffic 
